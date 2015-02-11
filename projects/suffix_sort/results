@@ -1,0 +1,289 @@
+改进版本!!!
+
+
+/home/pz/data/DNA/100MB
+ 
+compact time: 0.158715
+loops:11
+sort_split:21909957
+select_sort:29031414
+Mean sorting time over 1 rounds: 29.757509
+
+
+/home/pz/data/English/100MB
+ 
+compact time: 0.156922
+loops:25
+sort_split:42194239
+select_sort:172519776
+Mean sorting time over 1 rounds: 42.845893
+
+
+/home/pz/data/Sources/100MB
+ 
+compact time: 0.159473
+loops:40
+sort_split:62845538
+select_sort:223826493
+Mean sorting time over 1 rounds: 26.552628
+
+
+/home/pz/data/Pitches/50MB
+ 
+compact time: 0.078972
+loops:52
+sort_split:73098849
+select_sort:260505213
+Mean sorting time over 1 rounds: 11.225774
+
+
+/home/pz/data/Proteins/100MB
+ 
+compact time: 0.159106
+loops:64
+sort_split:92368473
+select_sort:313287037
+Mean sorting time over 1 rounds: 25.662905
+
+
+/home/pz/data/XML/100MB
+ 
+compact time: 0.160275
+loops:73
+sort_split:114244616
+select_sort:343057915
+Mean sorting time over 1 rounds: 27.120208
+原始版本!!!!! 
+
+
+/home/pz/data/DNA/100MB
+ 
+compact time: 0.159936
+loops:13
+sort_split:21893299
+select_sort:30246914
+Mean sorting time over 1 rounds: 29.063022
+
+
+/home/pz/data/English/100MB
+ 
+compact time: 0.156512
+loops:32
+sort_split:42162287
+select_sort:219820501
+Mean sorting time over 1 rounds: 41.634912
+
+
+/home/pz/data/Sources/100MB
+ 
+compact time: 0.157277
+loops:50
+sort_split:63058110
+select_sort:279645479
+Mean sorting time over 1 rounds: 25.674178
+
+
+/home/pz/data/Pitches/50MB
+ 
+compact time: 0.079081
+loops:64
+sort_split:73520398
+select_sort:323739448
+Mean sorting time over 1 rounds: 10.676219
+
+
+/home/pz/data/Proteins/100MB
+ 
+compact time: 0.155626
+loops:78
+sort_split:93127558
+select_sort:383829172
+Mean sorting time over 1 rounds: 24.348048
+
+
+/home/pz/data/XML/100MB
+ 
+compact time: 0.157204
+loops:88
+sort_split:115220447
+select_sort:415771648
+Mean sorting time over 1 rounds: 26.852779
+原始版本!!!!! 
+
+
+/home/pz/data/aaa
+ 
+原始版本!!!!! 
+
+
+/home/pz/data/aaa
+ 
+原始版本!!!!! 
+
+
+/home/pz/data/aaa
+ 
+compact time: 0.295425
+loops:26
+sort_split:39065678
+select_sort:39065764
+Mean sorting time over 1 rounds: 103.885842
+改进版本!!!
+
+
+/home/pz/data/aaa
+ 
+compact time: 0.309561
+loops:23
+sort_split:37134746
+select_sort:37134842
+Mean sorting time over 1 rounds: 93.920474
+原始版本!!!!! 
+
+
+/home/pz/data/aaa
+ 
+loops:26
+sort_split:39415902
+select_sort:39416092
+Mean sorting time over 1 rounds: 107.366353
+改进版本!!!
+
+
+/home/pz/data/aaa
+ 
+loops:22
+sort_split:37166859
+select_sort:37166460
+Mean sorting time over 1 rounds: 92.548765
+改进版本!!!
+
+
+/home/pz/data/aaa
+ 
+loops:22
+sort_split:37166859
+select_sort:37166460
+Mean sorting time over 1 rounds: 92.594212
+原始版本!!!!! 
+
+
+/home/pz/data/aaa
+ 
+loops:25
+sort_split:38173702
+select_sort:38173735
+Mean sorting time over 1 rounds: 125.771636
+原始版本!!!!! 
+
+
+/home/pz/data/aaa
+ 
+loops:25
+sort_split:38173702
+select_sort:38173735
+Mean sorting time over 1 rounds: 126.735841
+改进版本!!!
+
+
+/home/pz/data/aaa
+ 
+loops:0
+sort_split:39747673
+select_sort:39498198
+Mean sorting time over 1 rounds: 143.708597
+改进版本!!!
+
+
+/home/pz/data/aaa
+ 
+loops:24
+sort_split:45193177
+select_sort:45193224
+Mean sorting time over 1 rounds: 121.695068
+改进版本!!!
+
+
+/home/pz/data/DNA/100MB
+ 
+loops:0
+sort_split:18658418
+select_sort:23666844
+Mean sorting time over 1 rounds: 27.618632
+
+
+/home/pz/data/English/100MB
+ 
+loops:0
+sort_split:36743239
+select_sort:67769520
+Mean sorting time over 1 rounds: 28.269247
+
+
+/home/pz/data/Sources/100MB
+ 
+loops:0
+sort_split:54098546
+select_sort:101954589
+Mean sorting time over 1 rounds: 21.493981
+
+
+/home/pz/data/Pitches/50MB
+ 
+loops:0
+sort_split:62754145
+select_sort:121202086
+Mean sorting time over 1 rounds: 8.156397
+
+
+/home/pz/data/Proteins/100MB
+ 
+loops:0
+sort_split:77939255
+select_sort:154054985
+Mean sorting time over 1 rounds: 19.697921
+
+
+/home/pz/data/XML/100MB
+ 
+改进版本!!!
+
+
+/home/pz/data/DNA/100MB
+ 
+loops:0
+sort_split:18658418
+select_sort:23666844
+Mean sorting time over 1 rounds: 27.643377
+
+
+/home/pz/data/English/100MB
+ 
+loops:0
+sort_split:36743239
+select_sort:67769520
+Mean sorting time over 1 rounds: 28.278474
+
+
+/home/pz/data/Sources/100MB
+ 
+loops:2
+sort_split:54098797
+select_sort:101954828
+Mean sorting time over 1 rounds: 21.520119
+
+
+/home/pz/data/Pitches/50MB
+ 
+loops:2
+sort_split:62754396
+select_sort:121202325
+Mean sorting time over 1 rounds: 8.180235
+
+
+/home/pz/data/Proteins/100MB
+ 
+loops:2
+sort_split:77939506
+select_sort:154055224
+Mean sorting time over 1 rounds: 19.723511
