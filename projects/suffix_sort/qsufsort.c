@@ -166,19 +166,19 @@ static void sort_split(int first, int last, int bucket_lcp)
 
 static void bucketsort(int n, int alphabet_size)
 {
-     int  i, j, current, next, group_num;
+    int  i, ch, current, next, group_num;
 
      for (i = 0; i < alphabet_size; i++)  /*0 ~ k is the alphabet. sa is the list head*/
           sa[i] = -1;  /* mark linked lists empty. */
-     for (i = 0; i <= n; i++) { /* sa是链表头,指向字符的最后一个后缀的位置 */
-          current = rank[i];
-          rank[i] = sa[current];  /* insert in linked list.*/
-          sa[current] = i;
+     for (i = 0; i <= n; i++) { /* sa是链表头,sa[ch]指向以字符ch开头的最后一个后缀的位置 */
+          ch = rank[i];
+          rank[i] = sa[ch];
+          sa[ch] = i;
      }
 
-     for (j = alphabet_size - 1, i = n; j >= 0; j--) { /* 每次遍历以某个字符开头的所有后缀 */
+     for (ch = alphabet_size - 1, i = n; ch >= 0; ch--) { /* 每次遍历以某个字符开头的所有后缀 */
           group_num = i;
-          current = sa[j];	/*current != -1*/
+          current = sa[ch];	/*current != -1*/
 		
           if (rank[current] < 0) { /* only one element */
                rank[current] = group_num;
@@ -190,6 +190,7 @@ static void bucketsort(int n, int alphabet_size)
                     sa[i--] = current;
                     current = next;
                } while (current >= 0);
+
 #if (VERSION == 1)
                lcp[group_num] = chunk_size;
 #endif 
@@ -279,47 +280,47 @@ void qsufsort(unsigned char *text, int text_len, int max_char)
      bucket_lcp = chunk_size;
 #endif
      
-     while (text_len) {
-         group_end = rank[text_len];
-         if (sa[group_end] > 0) {
-             for (group_head = group_end - 1; rank[sa[group_head]] == group_end; group_head--)
-                 ;
-#if (VERSION == 1)
-             bucket_lcp = lcp[group_end];
-#endif
-             sort_split(group_head, group_end, bucket_lcp);
-         }
-         text_len--;
-     }
+/*      while (text_len) { */
+/*          group_end = rank[text_len]; */
+/*          if (sa[group_end] > 0) { */
+/*              for (group_head = group_end - 1; rank[sa[group_head]] == group_end; group_head--) */
+/*                  ; */
+/* #if (VERSION == 1) */
+/*              bucket_lcp = lcp[group_end]; */
+/* #endif */
+/*              sort_split(group_head + 1, group_end, bucket_lcp); */
+/*          } */
+/*          text_len--; */
+/*      } */
      
              
-/*      while (sa[0] >= -text_len) { */
-/*           loops++; */
-/*           sorted_len = group_head = 0;  /\* group_head is first position of group.sorted_len is negated length of sorted groups*\/ */
-/*           do { */
-/*                if ((v = sa[group_head]) < 0) { */
-/*                     group_head -= v;   /\* skip over sorted group.*\/ */
-/*                     sorted_len += v;   /\* add negated length to sl.*\/ */
-/*                } else { */
-/*                     if (sorted_len) { */
-/*                          sa[group_head+sorted_len] = sorted_len;  /\* combine sorted groups before pi.*\/ */
-/*                          sorted_len = 0; */
-/*                     } */
+     while (sa[0] >= -text_len) {
+          loops++;
+          sorted_len = group_head = 0;  /* group_head is first position of group.sorted_len is negated length of sorted groups*/
+          do {
+               if ((v = sa[group_head]) < 0) {
+                    group_head -= v;   /* skip over sorted group.*/
+                    sorted_len += v;   /* add negated length to sl.*/
+               } else {
+                    if (sorted_len) {
+                         sa[group_head+sorted_len] = sorted_len;  /* combine sorted groups before pi.*/
+                         sorted_len = 0;
+                    }
 
-/* #if (VERSION == 1) */
-/*                     bucket_lcp = lcp[rank[v]]; */
-/* #endif */
-/*                     sort_split(group_head, group_end = rank[v], bucket_lcp); */
-/*                     group_head = group_end + 1;  /\* next group.*\/ */
-/*                } */
-/*           } while (group_head <= text_len); */
-/*           /\* if the array ends with a sorted group.*\/ */
-/*           if (sorted_len) */
-/*                sa[group_head+sorted_len] = sorted_len; /\* combine sorted groups at end of sa.*\/ */
-/* #if (VERSION == 0) */
-/*           bucket_lcp *= 2; */
-/* #endif */
-/*      } */
+#if (VERSION == 1)
+                    bucket_lcp = lcp[rank[v]];
+#endif
+                    sort_split(group_head, group_end = rank[v], bucket_lcp);
+                    group_head = group_end + 1;  /* next group.*/
+               }
+          } while (group_head <= text_len);
+          /* if the array ends with a sorted group.*/
+          if (sorted_len)
+               sa[group_head+sorted_len] = sorted_len; /* combine sorted groups at end of sa.*/
+#if (VERSION == 0)
+          bucket_lcp *= 2;
+#endif
+     }
 
      for (i = 0; i <= text_len; i++)   /* reconstruct suffix array from inverse.*/
           sa[rank[i]] = i;

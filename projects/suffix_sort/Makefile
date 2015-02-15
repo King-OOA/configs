@@ -1,5 +1,5 @@
 objs = main.o qsufsort.o tools.o
-tag = g
+tag = O3
 
 qsufsolrt : $(objs) 
 	gcc $(objs)  -Wall -$(tag) -o qsufsort

@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
                puts(file_name);
                fprintf(results_fp, "\n\n%s \n", file_name);
 	    
-               filec_name[strlen(file_name)-1] = '\0'; /* 作文件名之前,替换掉换行符 */
+               file_name[strlen(file_name)-1] = '\0'; /* 作文件名之前,替换掉换行符 */
                puts("read text...");
                text_len = get_file_size(file_name);
                text = MALLOC("text", text_len + 1, unsigned char);
