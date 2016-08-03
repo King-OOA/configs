@@ -1,0 +1,17 @@
+remove lock = Caps_Lock
+add control = Caps_Lock
+keycode 0x42 = Control_L
+
+remove mod1 = Alt_R
+add shift = Alt_R
+keycode 0x6c  = Shift_R
+
+remove shift = Shift_L
+keycode 0x32 = BackSpace
+
+
+
+
+
+
+
