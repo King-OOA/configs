@@ -88,13 +88,15 @@ alias h='sudo pm-hibernate'
 alias free='free -h'
 alias rm='rm -vi'
 alias scb='source ~/.bashrc'
-alias df='df -h'
+alias df='df -h -t xfs' #只显示xfs类型的文件系统
 alias u2d='unix2dos'
 alias d2u='dos2unix'
 
 alias ud='apt-get update'
 alias ug='apt-get update;apt-get dist-upgrade'
-alias install='apt-get update;apt-get install'
+alias install='sudo apt-get update;sudo apt-get install'
+alias locate='sudo updatedb;locate'
+alias purge='sudo apt-get -y purge'
 
 alias tgz='tar -zxvf'
 alias tbz='tar -jxvf'
@@ -106,16 +108,18 @@ alias xx='xmodmap ~/.xmodmap'
 alias xe='xmodmap ~/.xmodmap; emacs &'
 alias ..='cd ../'
 alias ...='cd ../../'
-alias ad='cd ~/code/Adaptive/'
 
 alias s='sudo pm-suspend'
 alias h='sudo pm-hibernate'
 
-#git
-alias gb='git branch'
-alias gco='git checkout'
-alias gcm='git commit'
-alias ga='git add'
-
+#PATH
+alias ac='cd ~pz/code/AC/'
+alias libs='cd ~pz/code/libs/'
+alias ad='cd ~pz/code/Adaptive/'
+alias mlcs='cd ~pz/code/MLCS/'
+alias apue='cd ~pz/code/APUE/'
 
 GTAGSLIBPATH=$HOME/code/.gtags/
+
+# 在PATH中添加当前目录
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:.:

@@ -1,5 +1,5 @@
 ;;----------------------外观--------------------
-;; 使用solarized主题
+;使用solarized主题
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/color-theme-solarized-20160626.743")
 (load-theme 'solarized t)
 (set-frame-parameter nil 'background-mode 'dark)
@@ -25,18 +25,18 @@
 ;; 显示电池状态
 (setq display-battery-mode t)
 ;; 电池格式
-;;(battery-mode-line-format "[%b%p%%,%t]")
+;; ;;(battery-mode-line-format "[%b%p%%,%t]")
 
 
-;; --------------------操作时颜色设置--------------------
+;--------------------操作时颜色设置--------------------
 
+;; 选择区域颜色
+(set-face-foreground 'region "slate blue")
 ;; 选择区域文字颜色
-(set-face-foreground 'region "blue")
-;; 选择区域背景颜色
-(set-face-background 'region "gold")
+(set-face-background 'region "cyan")
 
-(set-face-foreground 'secondary-selection "skyblue")
-(set-face-background 'secondary-selection "darkblue")
+;; (set-face-foreground 'secondary-selection "skyblue")
+;; (set-face-background 'secondary-selection "darkblue")
 
 ;;访问同名文件时,buffer前显示父目录以区别
 (setq uniquify-buffer-name-style 'forward)
@@ -100,6 +100,11 @@
 (setq resize-mini-windows t)
 ;; 打开新文件或新buffer时无需确认
 ;(setq confirm-nonexistent-file-or-buffer 'after-completion)
+;; "C-|"切换到最近的buffer
+(global-set-key (kbd "M-o")
+		#'(lambda ()
+		    (interactive)
+		    (switch-to-buffer (other-buffer (current-buffer)))))
 
 ;;--------------------地理位置信息--------------------
 
@@ -142,7 +147,11 @@
 
 (global-set-key (kbd "M-e") 'scroll-up-line)
 (global-set-key (kbd "M-a") 'scroll-down-line)
-
+;; 输入','后自动加空格
+(global-set-key (kbd ",")
+                #'(lambda ()
+                    (interactive)
+                    (insert ", ")))
 ;; 用"C-w"向回删除一个单词
 ;(global-set-key "\C-w" 'backward-kill-word)
 ;; 用"C-x-k"删除区域
@@ -153,17 +162,19 @@
 (global-set-key (kbd "C-\\") 'eval-last-sexp)
 ;; f5 为刷新.emacs设置
 (global-set-key [f5] 'eval-buffer)
-;; 
+(global-set-key (kbd "M-<f12>") 'revert-buffer)
+(global-set-key [f8] 'list-packages)
 (global-set-key [f6] 'toggle-truncate-lines)
+(global-set-key [f12] 'replace-string)
 ;(setq-default compile-command "make")
 ;; f9 为调试
 (global-set-key [f9] 'gdb)
 
 ;; 代码折叠
-(global-set-key (kbd  "M-[") 'hs-show-block)
-(global-set-key (kbd  "M-]") 'hs-hide-block)
-(global-set-key (kbd  "M-{") 'hs-show-all)
-(global-set-key (kbd  "M-}") 'hs-hide-all)
+(global-set-key (kbd  "C-M-[") 'hs-show-block)
+(global-set-key (kbd  "C-M-]") 'hs-hide-block)
+(global-set-key (kbd  "C-M-{") 'hs-show-all)
+(global-set-key (kbd  "C-M-}") 'hs-hide-all)
 
 ;; 调用man
 (global-set-key (kbd  "C-c C-m") 'man)
@@ -172,8 +183,6 @@
 (global-set-key "\C-_" 'undo-only)
 ;; 'M-='显示buffer信息
 (global-set-key (kbd  "M-=") 'count-words)
-;; 'M-o' 切换到另一个框架
-;(global-set-key (kbd  "M-o") 'other-frame) 
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 
@@ -187,7 +196,7 @@
 
 ;;--------------------sr-speedbar-------------------- 
 
-(setq speedbar-use-images nil)
+;(setq speedbar-use-images nil)		
 
 
 ;;--------------------shell-mode--------------------
@@ -221,12 +230,12 @@
 (setq dired-auto-revert-buffer t)
 (setq dired-allow-to-change-permissions t) ;允许编辑文件的权限
 
-(add-to-list 'load-path "~/.emacs.d/elpa/dired+-20160528.748")
+(add-to-list 'load-path "~/.emacs.d/elpa/dired+-20161022.916")
 (require 'dired+)
 
 ;; (add-to-list 'load-path "~/.emacs.d/elpa/dired-single-20151230.1758")
 ;; (require 'dired-single)
-;; ;(dired-toggle-find-file-reuse-dir t)
+;; (dired-toggle-find-file-reuse-dir t)
 
 ;; dired-x
 (add-hook 'dired-load-hook
@@ -235,11 +244,6 @@
 	    ;; Set dired-x global variables here.  For example:
 	    ;; (setq dired-guess-shell-gnutar "gtar")
 	    ;; (setq dired-x-hands-off-my-keys nil)
-	    ))
-(add-hook 'dired-mode-hook
-	  (lambda ()
-	    ;; Set dired-x buffer-local variables here.  For example:
-	     (dired-omit-mode 1)
 	    ))
 
 ;; dired-jump
@@ -266,35 +270,30 @@
 ;; 大单词模式,下划线视为单词的一部分
 (superword-mode t)
 
-;;--------------------smartparens-mode--------------------
-(add-to-list 'load-path "~/.emacs.d/elpa/smartparens-20160721.1448")
+;; ;;--------------------smartparens-mode--------------------
+(add-to-list 'load-path "~/.emacs.d/elpa/smartparens-20161026.945")
 (require 'smartparens)
-(smartparens-global-strict-mode 1)
+(smartparens-global-mode 1)
 
-(global-set-key (kbd "C-M-a") 'sp-beginning-of-sexp)
-(global-set-key (kbd "C-M-e") 'sp-end-of-sexp)
+;; (global-set-key (kbd "C-M-a") 'sp-beginning-of-sexp)
+;; (global-set-key (kbd "C-M-e") 'sp-end-of-sexp)
 
-(global-set-key (kbd "C-M-f") 'sp-forward-sexp)
-(global-set-key (kbd "C-M-b") 'sp-backward-sexp)
-(global-set-key (kbd "C-M-n") 'sp-next-sexp)
-(global-set-key (kbd "C-M-p") 'sp-previous-sexp)
+;; (Global-set-key (kbd "C-M-f") 'sp-forward-sexp)
+;; (global-set-key (kbd "C-M-b") 'sp-backward-sexp)
+;; (global-set-key (kbd "C-M-n") 'sp-next-sexp)
+;; q(global-set-key (kbd "C-M-p") 'sp-previous-sexp)
 
-(global-set-key (kbd "C-M-[") 'sp-backward-unwrap-sexp)
-(global-set-key (kbd "C-M-]") 'sp-unwrap-sexp)
 
-( (foo bar) baz)
-(foo) sfasaf  (bar) (baz quux)
+;; (global-set-key (kbd "C-M-[") 'sp-backward-unwrap-sexp)
+;; (global-set-key (kbd "C-M-]") 'sp-unwrap-sexp)
 
-(defn blah
-  
-  (fsaf fsaf "Returns blah of foo." fdsaf)
-  [foo]
-  )
+;; --------------------Multiple-cursors--------------------
+;; (require 'multiple-cursors)
+;; (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+;; (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+;; (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+;; (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
-(foo |(bar baz) quux blab)
-(:require [clojure.string :as s])
-
-(let [x "foo bar baz ... blah"])
 
 ;;--------------------备份文件--------------------
 ;;每输入20个字符就自动保存一次 
@@ -325,7 +324,7 @@
 (setq global-auto-revert-non-file-buffers t)
 
 ;;--------------------window-numbering-mode--------------------
-(add-to-list 'load-path "~/.emacs.d/elpa/window-numbering-20150228.1247/")
+(add-to-list 'load-path "~/.emacs.d/elpa/window-numbering-20160809.1110/")
 (require 'window-numbering) ;; 用M-0~9来切换窗口
 (window-numbering-mode t)
 
@@ -353,35 +352,10 @@
 ; (setq golden-ratio-auto-scale t)
 
 
-;; --------------------ivy-mode--------------------
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-(setq ivy-height 10) ;每次显示10个候选项 
-(setq ivy-count-format "(%d/%d) ")	;显示格式
-
-(global-set-key "\C-s" 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-load-library)
-(global-set-key (kbd "<f1> s") 'counsel-info-lookup-symbol)
-;; (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
 
 ;;--------------------avy-mode--------------------
  
-(add-to-list 'load-path "~/.emacs.d/elpa/avy-20160722-512")
+(add-to-list 'load-path "~/.emacs.d/elpa/avy-20160814.250")
 (require 'avy) 
 (avy-setup-default)
 (global-set-key (kbd "M-SPC") 'avy-goto-char-2)
@@ -392,14 +366,16 @@
 (define-key global-map (kbd "C-c C-SPC") 'just-one-space)
 
 ;;--------------------avy-zap-mode--------------------
-(add-to-list 'load-path "~/.emacs.d/elpa/avy-zap-20160330.1130")
+
+(add-to-list 'load-path "~/.emacs.d/elpa/avy-zap-20160921.1444")
 (require 'avy-zap)
 (global-set-key (kbd "M-z") 'avy-zap-up-to-char)
 (global-set-key (kbd "M-Z") 'avy-zap-to-char)
  
 
 ;;--------------------flycheck-mode--------------------
-(add-to-list 'load-path "~/.emacs.d/elpa/flycheck-20160718.215")
+
+(add-to-list 'load-path "~/.emacs.d/elpa/flycheck-20161025.551")
 (require 'flycheck)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -418,16 +394,16 @@
 (add-hook 'after-init-hook 'global-company-mode)
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 2)
-(setq company-backends (delete 'company-semantic company-backends))
+;(setq company-backends (delete 'company-semantic company-backends))
 (global-set-key (kbd "<backtab>") 'company-complete)
-(add-to-list 'company-backends 'company-c-headers);自动补全c/c++头文件
+;(add-to-list 'company-backends 'company-c-headers);自动补全c/c++头文件
 ;; (add-to-list 'company-c-headers-path-user "/home/pz/code/libs/_h")
 ;; (add-to-list 'company-c-headers-path-user "/home/pz/code/MASM/")
 ;; (add-to-list 'company-c-headers-path-user "/home/pz/code/Hash_match/include")
 
 ;;--------------------Undo-tree-mode--------------------
 
-(add-to-list 'load-path "~/.emacs.d/elpa/undo-tree-20140509.522/")
+(add-to-list 'load-path "~/.emacs.d/elpa/undo-tree-20161012.701/")
 (require 'undo-tree)
 (global-undo-tree-mode 1)
 
@@ -438,16 +414,31 @@
 (setq-default TeX-master nil)
 
 ;;hooks
-(add-hook 'LaTeX-mode-hook 'auto-fill-mode)
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-(add-hook 'LaTeX-mode-hook 'abbrev-mode)
-(add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(add-hook 'LaTeX-mode-hook 'follow-mode)
-(add-hook 'LaTeX-mode-hook 'server-start)
-(add-hook 'Latex-mode-hook (lambda ()
-                                  (TeX-fold-mode 1)))
+
+(add-hook 'LaTeX-mode-hook
+	  (lambda()
+	    (auto-fill-mode t)
+	    (flyspell-mode t)
+	    (LaTeX-math-mode t)
+	    (abbrev-mode t)
+	    (TeX-source-correlate-mode t)
+	    (turn-on-reftex)
+	    (follow-mode 1)
+	    (server-start 1)
+	    (Tex-fold-mode 1)
+	    
+	    )
+	  )
+(setq Tex-save-query nil)
+;; (add-hook 'LaTeX-mode-hook 'auto-fill-mode)
+;; (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+;; (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+;; (add-hook 'LaTeX-mode-hook 'abbrev-mode)
+;; (add-hook 'LaTeX-mode-hook 'TeX-source-correlate-mode)
+;; (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+;; (add-hook 'LaTeX-mode-hook 'follow-mode)
+;; (add-hook 'LaTeX-mode-hook 'server-start)
+;; (add-hook 'Latex-mode-hook 'TeX-fold-mode)
 
 (setq reftex-external-file-finders   
 '(("tex" . "kpsewhich -format=.tex %f")   
@@ -487,7 +478,7 @@
 
 ;;--------------------cc-mode--------------------
 
-;(setq c-basic-offset 4) ;;基本缩进量为4
+(setq-default c-basic-offset 4) ;;基本缩进量为4
 
 (setq c-default-style '((java-mode . "java")
 			(awk-mode . "awk")
@@ -496,35 +487,24 @@
 (setq-default c-electric-flag nil)
 ;Customizations for all modes in CC Mode.
 ;;代码折叠
-(add-hook 'c-mode-common-hook 'hs-minor-mode)
-(add-hook 'c-mode-common-hook 'flycheck-mode)
-(add-hook 'c-mode-common-hook
-	  (lambda () (subword-mode 1)
-	    (setq c-basic-offset 4)))
-(add-hook 'c-mode-common-hook 'abbrev-mode)
-(add-hook 'c-mode-common-hook 'company-mode)
-(add-hook 'c-mode-common-hook 'linum-mode)
-;; (defun pz-c-mode-common-hook ()
-;;   ;; set my personal style for the current buffer
-;;   (c-default-style "k&r")
-;;   ;; other customizations
-;;   (setq tab-width 8
-;;         ;; this will make sure spaces are used instead of tabs
-;;         indent-tabs-mode nil)
-;;   (c-toggle-auto-hungry-state 1)
-;; )
 
-;(add-hook 'c-mode-hook 'pz-c-mode-hook)	
-
-
-
-
+(setq c-mode-hook
+      '(lambda ()
+	 (company-mode 1)
+	 (linum-mode 1)
+	 (abbrev-mode 1)
+	 (hs-minor-mode 1)
+	 (flycheck-mode 1)
+	 (c-toggle-auto-hungry-state 1)
+	 ))
 
 ;;--------------------配置packages源--------------------
+
 (require 'package)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(setq package-archives '(("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+			 ("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+			 ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")))
+      
 (package-initialize)
 
 ;;--------------------系统设置--------------------
@@ -568,15 +548,15 @@
  )
 
 
-;;--------------------helm-mode--------------------
+;--------------------helm-mode--------------------
 
-;(add-to-list 'load-path "~/.emacs.d/elpa/helm-20160715.2117")
-;(add-to-list 'load-path "~/.emacs.d/elpa/helm-core-20160716.3")
+;; (add-to-list 'load-path "~/.emacs.d/elpa/helm-20160929.1313")
+;; (add-to-list 'load-path "~/.emacs.d/elpa/helm-core-20160929.1313")
 
-;(require 'helm-config)
-;(require 'helm)
-;(helm-mode 1)
-;(semantic-mode 1);;开启语法解析模块
+;; (require 'helm-config)
+;; (require 'helm)
+;; (helm-mode 1)
+;; (semantic-mode 1);;开启语法解析模块
 
 ;; (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
 ;;       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
@@ -585,9 +565,9 @@
 ;;       helm-ff-file-name-history-use-recentf t)
 
 ;;helm-session-buffer大小
-;(helm-autoresize-mode -1) ;自动调节session大小
-;(setq helm-autoresize-max-height 20) ;;最高不超过当前窗口高度的0%
-;(add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages);;将当前光标下的符号作为默认man-page的输入
+;; (helm-autoresize-mode -1) ;自动调节session大小
+;; (setq helm-autoresize-max-height 20) ;;最高不超过当前窗口高度的0%
+;; (add-to-list 'helm-sources-using-default-as-input 'helm-source-man-pages);;将当前光标下的符号作为默认man-page的输入
 
 ;; ;;键绑定
 ;; (global-set-key (kbd "C-c h") 'helm-command-prefix);; helm-mode的命令前缀
@@ -602,9 +582,8 @@
 ;; (global-set-key (kbd "C-c h r") 'helm-register)
 ;; (global-set-key (kbd "C-c h f") 'helm-find)
 
-;(define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history) unwrap)
+;; (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
 
-;;模糊匹配
 ;; (setq helm-M-x-fuzzy-match t
 ;; helm-buffers-fuzzy-matching t
 ;; helm-recentf-fuzzy-match t
@@ -614,11 +593,11 @@
 ;; helm-apropos-fuzzy-match t
 ;; helm-lisp-fuzzy-completion t)
 
-;; ;--------------------helm-gtags--------------------
-;; (add-to-list 'load-path "~/.emacs.d/elpa/helm-gtags-20160417.555")
+;--------------------helm-gtags--------------------
+;(add-to-list 'load-path "~/.emacs.d/elpa/helm-gtags-20160")
 
-;; (require 'helm-gtags)
-;; ;; Enable helm-gtags-mode
+;(require 'helm-gtags)
+;; Enable helm-gtags-mode
 
 ;; (setq
 ;;  helm-gtags-ignore-case t
@@ -654,3 +633,93 @@
 ;; (global-set-key (kbd "C-c t") 'tabbar-ruler-move)
 
 
+
+;;--------------------chinese-pyim--------------------
+
+;; (require 'chinese-pyim)
+;; (require 'chinese-pyim-basedict)
+;; (chinese-pyim-greatdict-enable)
+;; (setq default-input-method "chinese-pyim")
+;; (global-set-key (kbd "C-\\") 'toggle-input-method)
+;; (setq pyim-use-tooltip 'popup)
+;; (setq pyim-use-tooltip 'pos-tip)
+;; (require 'chinese-pyim-company)
+;; (setq pyim-company-max-length 6)
+;; (setq pyim-page-length 10) ;每页显示10个候选项
+;; (setq pyim-use-tooltip 'pos-tip)
+;; (setq x-gtk-use-system-tooltips t)
+
+
+;;----------------------TRAMP--------------------
+;; 默认ssh连接
+(setq tramp-default-method "ssh")
+
+
+
+;; --------------------ivy-mode--------------------
+(add-to-list 'load-path "~/.emacs.d/elpa/ivy-20161025.2304")
+
+(require 'ivy)
+(ivy-mode 1)
+
+(setq ivy-use-virtual-buffers t) ;在切换buffer时, 是否显示不存在的buffer(如最近打开过的文件)
+(setq ivy-height 10) ;每次显示10个候选项 
+(setq ivy-count-format "(%d/%d) ") ;显示格式
+(setq ivy-extra-directories nil) ;匹配时不显示./和../
+
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-load-library)
+(global-set-key (kbd "<f1> s") 'counsel-info-lookup-symbol)
+;; (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+
+(global-set-key (kbd "C-c g") 'counsel-git)
+(global-set-key (kbd "C-c j") 'counsel-git-grep)
+(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "C-x l") 'counsel-locate)
+
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+
+;; 匹配时的颜色
+(set-face-background 'ivy-current-match "purple3")
+(set-face-foreground 'ivy-current-match nil)
+
+(set-face-foreground 'ivy-minibuffer-match-face-1 "peach puff")
+(set-face-background 'ivy-minibuffer-match-face-1 nil)
+
+(set-face-foreground 'ivy-minibuffer-match-face-2 "peach puff")
+(set-face-background 'ivy-minibuffer-match-face-2 nil)
+
+(set-face-foreground 'ivy-minibuffer-match-face-3 "peach puff")
+(set-face-background 'ivy-minibuffer-match-face-3 "nil")
+
+(set-face-foreground 'ivy-minibuffer-match-face-4 "peach puff")
+(set-face-background 'ivy-minibuffer-match-face-4 "nil")
+
+
+;;--------------------org-mode--------------------
+
+(add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+;; 记录TODO任务完成时(DNOE)的时间
+
+(global-set-key (kbd "M-S-<down>") 'org-move-subtree-down)
+
+
+;; --------------------Ebib--------------------
+;; 启动ebib
+(global-set-key "\C-ce" 'ebib)
+;; 自动生成entry key
+(setq ebib-autogenerate-keys nil)
+;;为每个新加入的项生成其加入时间戳.
+(setq ebib-use-timestamp t)
